@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,11 +14,14 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::middleware('auth')->group(function(){
-    Route::view('', 'index')->name('home');
+Route::middleware('guest')->group(function(){
+    Route::view('login', 'login')->name('login');
+    Route::view('register', 'register')->name('register');
+    Route::post('register/process', [AuthController::class, 'register'])->name('register-process');
+    Route::post('login/process', [AuthController::class, 'login'])->name('login-process');
 });
 
-Route::view('login', 'login')->name('login');
-Route::view('register', 'register')->name('register');
-Route::post('register/process', [AuthController::class, 'register'])->name('register-process');
-Route::post('login/process', [AuthController::class, 'login'])->name('login-process');
+Route::middleware('auth')->group(function(){
+    Route::get('', [HomeController::class, 'index'])->name('home');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+});

@@ -33,7 +33,7 @@ Register
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control {{$errors->has('username') ? 'is-invalid' : ''}}" id="username" name="username" type="text" placeholder="Masukan username" value="{{old('title')}}" />
+                        <input class="form-control {{$errors->has('username') ? 'is-invalid' : ''}}" id="username" name="username" type="text" placeholder="Masukan username" value="{{old('username')}}" />
                         <label for="username">Username</label>
                         <div id="validationServer03Feedback" class="invalid-feedback">
                         {{$errors->first('username')}}

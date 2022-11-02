@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+use App\Rules\LowerCase;
 
 class RegisterRequest extends FormRequest
 {
@@ -26,9 +27,9 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required','min:4','max:30'],
-            'nim' => ['required','numeric','max:10'],
-            'foto' => ['required','file','size:512','mimes:jpg,png,jpeg'],
-            'username' => ['required'],
+            'nim' => ['required', 'regex:/^[0-9]+$/', 'max:10'],
+            'foto' => ['required','file','max:500','mimes:jpg,png,jpeg'],
+            'username' => ['required', new LowerCase],
             'password' =>  [
                 'required',
                 'min:8',

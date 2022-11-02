@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
@@ -24,8 +26,21 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|max:16',
-            'password' => 'required|min:8'
+            'username' => 'required',
+            'password' => 'required'
         ];
+    }
+
+    public function authenticate()
+    {
+        $credentials = $this->only('username', 'password');
+        $remember = $this->boolean('remember') ? $this->boolean('remember') : false;
+
+        if (!Auth::attempt($credentials, $remember)){
+            throw ValidationException::withMessages([
+                'username' => trans('auth.failed'),
+                'password' => trans('auth.failed'),
+            ]);
+        }
     }
 }
