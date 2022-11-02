@@ -3,7 +3,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">User</div>
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/">
                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                     Mahasiswa
                 </a>                
